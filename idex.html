@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal Page</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      background: linear-gradient(120deg, #fceabb, #f8b500);
+      padding: 50px;
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      animation: wiggle 1.5s infinite;
+    }
+
+    @keyframes wiggle {
+      0%,100% { transform: rotate(0deg); }
+      25% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+      75% { transform: rotate(-5deg); }
+    }
+
+    .proposal-image {
+      max-width: 90%;
+      height: auto;
+      margin: 15px 0;
+      border-radius: 20px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+      transform: scale(0);
+      animation: popIn 0.7s forwards;
+    }
+
+    .proposal-image:nth-child(1) { animation-delay: 0.3s; }
+    .proposal-image:nth-child(2) { animation-delay: 0.6s; }
+    .proposal-image:nth-child(3) { animation-delay: 0.9s; }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #yesButton {
+      padding: 20px 50px;
+      font-size: 22px;
+      margin-top: 30px;
+      cursor: pointer;
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      display: none;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    #yesButton:hover {
+      transform: scale(1.1);
+      background-color: #e85d50;
+    }
+
+    #proposalVideo {
+      width: 90%;
+      max-width: 700px;
+      margin-top: 25px;
+      border-radius: 20px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ALVIN TELVIN Will You Accept My Valentine's Proposal?</h1>
+
+  <!-- Images -->
+  <img src="img1.jpg" alt="Proposal Image 1" class="proposal-image">
+  <img src="img2.jpg" alt="Proposal Image 2" class="proposal-image">
+  <img src="img3.jpg" alt="Proposal Image 3" class="proposal-image">
+
+  <!-- Video -->
+  <video id="proposalVideo" controls autoplay>
+    <source src="proposal.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Yes button -->
+  <button id="yesButton">Yes</button>
+
+  <script>
+    const video = document.getElementById("proposalVideo");
+    const yesButton = document.getElementById("yesButton");
+
+    // Surprise alert messages
+    const messages = [
+      "You can't resist me! 😎",
+      "Almost there... 😅",
+      "Are you enjoying this? 😏",
+      "Don’t click too fast! 😜",
+      "I see you smiling! 😁",
+      "This is fun, right? 😂"
+    ];
+
+    function showSurpriseMessage() {
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      alert(msg);
+    }
+
+    // Show random messages every 5-10 seconds while video plays
+    function startRandomMessages() {
+      const interval = Math.floor(Math.random() * 5000) + 5000; // 5-10s
+      setTimeout(() => {
+        if (!video.paused && !video.ended) {
+          showSurpriseMessage();
+          startRandomMessages();
+        }
+      }, interval);
+    }
+
+    video.addEventListener("play", () => {
+      startRandomMessages();
+    });
+
+    // Show Yes button after video ends
+    video.addEventListener("ended", () => {
+      yesButton.style.display = "inline-block";
+      yesButton.animate([
+        { transform: 'scale(0)' },
+        { transform: 'scale(1.2)' },
+        { transform: 'scale(1)' }
+      ], { duration: 800, easing: 'ease-out' });
+    });
+
+    // Yes button click
+    yesButton.addEventListener("click", () => {
+      alert("Yes clicked! 💖 valentines Proposal accepted!");
+    });
+  </script>
+
+</body>
+</html>
